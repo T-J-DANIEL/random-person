@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  faPhone,
+  faHome,
+  faBirthdayCake,
+  faMailBulk,
+  faTag,
+} from "@fortawesome/free-solid-svg-icons"
+
 // TODO add await syntax to the fetch statement
-// TODO add extra features and refactor
-// TODO finish Css
 
 function App() {
   const url = "https://randomuser.me/api/"
   const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState()
+
   const [displayText, setDisplayText] = useState({ title: "", value: "" })
   const [displayImg, setDisplayImg] = useState("")
   // name email age street phone password
@@ -28,7 +36,7 @@ function App() {
         case "d":
           setDisplayText({
             title: "My street is:",
-            value: `${user.location.number} ${user.location.name}`,
+            value: `${user.location.street.number} ${user.location.street.name}`,
           })
           break
         case "e":
@@ -47,16 +55,14 @@ function App() {
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
-       
         setUser(json.results[0])
-    
+
         setIsLoading(false)
-        setDisplayImg(json.results[0].picture.medium)
+        setDisplayImg(json.results[0].picture.large)
         setDisplayText({
           title: "My name is:",
           value: `${json.results[0].name.first} ${json.results[0].name.last}`,
         })
-   
       })
       .catch(() => {
         console.log("fetch error")
@@ -91,7 +97,7 @@ function App() {
                 handleMouseOver(e)
               }}
             >
-              a
+              <FontAwesomeIcon icon={faTag} />
             </button>
             <button
               id="b"
@@ -100,7 +106,7 @@ function App() {
                 handleMouseOver(e)
               }}
             >
-              b
+              <FontAwesomeIcon icon={faMailBulk} />
             </button>
             <button
               id="c"
@@ -109,7 +115,7 @@ function App() {
                 handleMouseOver(e)
               }}
             >
-              c
+              <FontAwesomeIcon icon={faBirthdayCake} />
             </button>
             <button
               id="d"
@@ -118,7 +124,7 @@ function App() {
                 handleMouseOver(e)
               }}
             >
-              d
+              <FontAwesomeIcon icon={faHome} />
             </button>
             <button
               id="e"
@@ -127,7 +133,7 @@ function App() {
                 handleMouseOver(e)
               }}
             >
-              e
+              <FontAwesomeIcon icon={faPhone} />
             </button>
           </div>
           <button
